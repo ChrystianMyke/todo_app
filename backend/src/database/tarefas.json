@@ -1,0 +1,23 @@
+{
+  "tarefas": [
+    {
+      "id": 1,
+      "titulo": "Aprender CRUD",
+      "descricao": "Entender Create, Read, Update, Delete",
+      "concluida": false
+    },
+    {
+      "id": 2,
+      "titulo": "Fazer exercícios",
+      "descricao": "Praticar o que aprendeu",
+      "concluida": false
+    },
+    {
+      "id": 3,
+      "titulo": "Aprender React",
+      "descricao": "",
+      "concluida": false
+    }
+  ],
+  "proximoId": 4
+}
