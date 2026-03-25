@@ -1,24 +1,29 @@
-// Este arquivo simula um banco de dados
-// Usa o módulo 'fs' do Node.js para salvar as tarefas em um arquivo JSON
-// Assim as tarefas não somem quando o servidor reinicia!
+/**
+ * Módulo de Banco de Dados - Persistência de Tarefas
+ *
+ * Este arquivo implementa o sistema de persistência de dados usando o módulo 'fs' do Node.js.
+ * As tarefas são salvas em um arquivo JSON, garantindo que não sejam perdidas ao reiniciar o servidor.
+ *
+ * @author Projeto Todo App
+ * @version 1.0.0
+ */
 
 const fs = require("fs");
 const path = require("path");
 
-// Caminho do arquivo onde vamos salvar as tarefas
+// Caminho do arquivo onde as tarefas são persistidas
 const ARQUIVO_TAREFAS = path.join(__dirname, "tarefas.json");
 
-// Nosso "banco de dados" em memória
+// Armazenamento em memória (cache)
 let tarefas = [];
 
-// Variável para gerar IDs automaticamente
+// Contador para gerar IDs únicos
 let proximoId = 1;
 
-// ============================================
-// Funções para salvar e carregar do arquivo
-// ============================================
-
-// Salvar as tarefas no arquivo JSON (versão síncrona)
+/**
+ * Salva as tarefas e o próximo ID no arquivo JSON
+ * Função síncrona que escreve no disco
+ */
 function salvarTarefas() {
   const dados = {
     tarefas,
@@ -27,8 +32,10 @@ function salvarTarefas() {
   fs.writeFileSync(ARQUIVO_TAREFAS, JSON.stringify(dados, null, 2), "utf-8");
 }
 
-// Carregar as tarefas do arquivo JSON (versão síncrona)
-// Se o arquivo não existir, usa os dados padrão
+/**
+ * Carrega as tarefas do arquivo JSON ao iniciar o servidor
+ * Se o arquivo não existir, cria com dados iniciais padrão
+ */
 function carregarTarefas() {
   try {
     const dados = fs.readFileSync(ARQUIVO_TAREFAS, "utf-8");
@@ -37,7 +44,7 @@ function carregarTarefas() {
     proximoId = parsed.proximoId || 1;
     console.log("✅ Tarefas carregadas do arquivo!");
   } catch {
-    // Se o arquivo não existe, cria com dados padrão
+    // Arquivo não existe - criar com dados iniciais
     console.log("📝 Criando arquivo de tarefas...");
     tarefas = [
       {
@@ -59,53 +66,67 @@ function carregarTarefas() {
   }
 }
 
-// Função para gerar novo ID
+/**
+ * Gera um novo ID único para uma tarefa
+ * @returns {number} Novo ID sequencial
+ */
 function gerarId() {
   const id = proximoId;
   proximoId++;
   return id;
 }
 
-// ============================================
-// Funções auxiliares que também salvam no arquivo
-// ============================================
-
-// Adicionar uma nova tarefa e salvar
+/**
+ * Adiciona uma nova tarefa ao array e salva no arquivo
+ * @param {Object} tarefa - Objeto contendo os dados da tarefa
+ */
 function adicionarTarefa(tarefa) {
   tarefas.push(tarefa);
-  salvarTarefas(); // Salva automaticamente após adicionar
+  salvarTarefas();
 }
 
-// Atualizar uma tarefa e salvar
+/**
+ * Atualiza uma tarefa existente pelo ID
+ * @param {number} id - ID da tarefa a ser atualizada
+ * @param {Object} dados - Objeto contendo os campos a serem atualizados
+ * @returns {Object|null} Tarefa atualizada ou null se não encontrada
+ */
 function atualizarTarefaBD(id, dados) {
   const index = tarefas.findIndex((t) => t.id === id);
   if (index !== -1) {
     if (dados.titulo !== undefined) tarefas[index].titulo = dados.titulo;
     if (dados.descricao !== undefined) tarefas[index].descricao = dados.descricao;
     if (dados.concluida !== undefined) tarefas[index].concluida = dados.concluida;
-    salvarTarefas(); // Salva automaticamente após atualizar
+    salvarTarefas();
     return tarefas[index];
   }
   return null;
 }
 
-// Excluir uma tarefa e salvar
+/**
+ * Exclui uma tarefa pelo ID
+ * @param {number} id - ID da tarefa a ser excluída
+ * @returns {boolean} True se excluiu, false se não encontrou
+ */
 function excluirTarefaBD(id) {
   const index = tarefas.findIndex((t) => t.id === id);
   if (index !== -1) {
     tarefas.splice(index, 1);
-    salvarTarefas(); // Salva automaticamente após excluir
+    salvarTarefas();
     return true;
   }
   return false;
 }
 
-// Função para obter todas as tarefas
+/**
+ * Retorna todas as tarefas
+ * @returns {Array} Array de tarefas
+ */
 function getTarefas() {
   return tarefas;
 }
 
-// Exportar tudo diretamente
+// Exportação das funções e variáveis para uso em outros módulos
 module.exports = {
   carregarTarefas,
   gerarId,

@@ -1,14 +1,25 @@
-// Este arquivo é como um "garçom" que leva pedidos entre o frontend e o backend
-// Ele faz a conexão (pedidos HTTP) com as rotas que criamos no backend
+/**
+ * Módulo de Comunicação com API - Tarefas
+ *
+ * Este arquivo contém todas as funções para comunicação com o backend.
+ * Cada função representa uma operação CRUD e faz uma chamada HTTP para a API.
+ *
+ * API Base URL: http://localhost:3000/api/tarefas
+ *
+ * @author Projeto Todo App
+ * @version 1.0.0
+ */
 
 import type { Tarefa } from "../types/tarefa";
 
-// O endereço do nosso backend (onde ele está rodando)
+// URL base da API do backend
 const API_URL = "http://localhost:3000/api/tarefas";
 
 // ============================================
-// READ - Pegar todas as tarefas (GET)
-// É como pedir ao garçom: "Me mostra todas as tarefas do cardápio"
+// GET - Buscar todas as tarefas
+// Método HTTP: GET
+// Endpoint: /api/tarefas
+// Retorna: Array de Tarefa[]
 // ============================================
 export async function buscarTarefas(): Promise<Tarefa[]> {
   const resposta = await fetch(API_URL);
@@ -19,8 +30,11 @@ export async function buscarTarefas(): Promise<Tarefa[]> {
 }
 
 // ============================================
-// READ - Pegar uma tarefa pelo ID (GET)
-// É como pedir: "Me mostra só essa tarefa específica"
+// GET - Buscar tarefa por ID
+// Método HTTP: GET
+// Endpoint: /api/tarefas/:id
+// Parâmetros: id (number)
+// Retorna: Objeto Tarefa
 // ============================================
 export async function buscarTarefaPorId(id: number): Promise<Tarefa> {
   const resposta = await fetch(`${API_URL}/${id}`);
@@ -31,16 +45,19 @@ export async function buscarTarefaPorId(id: number): Promise<Tarefa> {
 }
 
 // ============================================
-// CREATE - Criar nova tarefa (POST)
-// É como fazer um novo pedido: "Quero adicionar isso ao cardápio"
+// POST - Criar nova tarefa
+// Método HTTP: POST
+// Endpoint: /api/tarefas
+// Corpo: { titulo: string, descricao: string, concluida: boolean }
+// Retorna: Objeto Tarefa criada
 // ============================================
 export async function criarTarefa(tarefa: Omit<Tarefa, "id">): Promise<Tarefa> {
   const resposta = await fetch(API_URL, {
-    method: "POST", // Diz que queremos CRIAR algo novo
+    method: "POST",
     headers: {
-      "Content-Type": "application/json", // Diz que estamos enviando JSON
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(tarefa), // Transforma os dados em texto para enviar
+    body: JSON.stringify(tarefa),
   });
 
   if (!resposta.ok) {
@@ -52,15 +69,19 @@ export async function criarTarefa(tarefa: Omit<Tarefa, "id">): Promise<Tarefa> {
 }
 
 // ============================================
-// UPDATE - Atualizar tarefa (PUT)
-// É como pedir para o garçom: "Muda isso no pedido"
+// PUT - Atualizar tarefa
+// Método HTTP: PUT
+// Endpoint: /api/tarefas/:id
+// Parâmetros: id (number)
+// Corpo: { titulo?, descricao?, concluida? }
+// Retorna: Objeto Tarefa atualizada
 // ============================================
 export async function atualizarTarefa(
   id: number,
   dados: Partial<Tarefa>
 ): Promise<Tarefa> {
   const resposta = await fetch(`${API_URL}/${id}`, {
-    method: "PUT", // Diz que queremos ATUALIZAR algo
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
@@ -76,12 +97,15 @@ export async function atualizarTarefa(
 }
 
 // ============================================
-// DELETE - Excluir tarefa (DELETE)
-// É como pedir para o garçom: "Tira isso do cardápio"
+// DELETE - Excluir tarefa
+// Método HTTP: DELETE
+// Endpoint: /api/tarefas/:id
+// Parâmetros: id (number)
+// Retorna: void
 // ============================================
 export async function excluirTarefa(id: number): Promise<void> {
   const resposta = await fetch(`${API_URL}/${id}`, {
-    method: "DELETE", // Diz que queremos DELETAR algo
+    method: "DELETE",
   });
 
   if (!resposta.ok) {

@@ -1,77 +1,83 @@
-// Este componente mostra uma única tarefa na tela
-// É como um "card" ou "cartão" de tarefa
+/**
+ * Componente TarefaCard - Card de Visualização de Tarefa
+ *
+ * Este componente React renders um card individual de tarefa.
+ * Exibe o checkbox de conclusão, título, descrição e botão de exclusão.
+ *
+ * @component
+ * @prop {Tarefa} tarefa - Objeto contendo os dados da tarefa
+ * @prop {Function} onAtualizar - Callback para atualizar o status de conclusão
+ * @prop {Function} onExcluir - Callback para excluir a tarefa
+ *
+ * @author Projeto Todo App
+ * @version 1.0.0
+ */
 
 import type { Tarefa } from "../types/tarefa";
 
+/**
+ * Props do componente TarefaCard
+ */
 interface TarefaCardProps {
-  tarefa: Tarefa; // A tarefa que vai ser mostrada
-  onAtualizar: (id: number, concluida: boolean) => void; // Função para atualizar
-  onExcluir: (id: number) => void; // Função para excluir
+  /**
+   * Dados da tarefa a ser exibida
+   */
+  tarefa: Tarefa;
+
+  /**
+   * Função chamada ao marcar/desmarcar a tarefa
+   * @param id - ID da tarefa
+   * @param concluida - Novo status de conclusão
+   */
+  onAtualizar: (id: number, concluida: boolean) => void;
+
+  /**
+   * Função chamada ao clicar no botão de excluir
+   * @param id - ID da tarefa a ser excluída
+   */
+  onExcluir: (id: number) => void;
 }
 
+/**
+ * Componente funcional TarefaCard
+ * Renderiza um card de tarefa com checkbox, título, descrição e botão de exclusão
+ */
 export function TarefaCard({ tarefa, onAtualizar, onExcluir }: TarefaCardProps) {
   return (
-    <div
-      style={{
-        border: "1px solid #ccc",
-        borderRadius: "8px",
-        padding: "16px",
-        marginBottom: "12px",
-        display: "flex",
-        alignItems: "center",
-        gap: "12px",
-        backgroundColor: tarefa.concluida ? "#f0f0f0" : "white",
-      }}
-      >
+    <div className={`tarefa-card ${tarefa.concluida ? 'concluida' : ''}`}>
       {/* Checkbox para marcar como concluída */}
-      <input 
+      <input
         type="checkbox"
         checked={tarefa.concluida}
         onChange={(e) => onAtualizar(tarefa.id, e.target.checked)}
-        style={{ width: "20px", height: "20px", cursor: "pointer" }}
+        className="tarefa-checkbox"
+        title={tarefa.concluida ? "Marcar como não concluída" : "Marcar como concluída"}
       />
 
-      {/* Informações da tarefa */}
-      <div style={{ flex: 1 }}>
-        {/* Título da tarefa */}
-        <h3
-          style={{
-            margin: "0 0 4px 0",
-            textDecoration: tarefa.concluida ? "line-through" : "none",
-            color: tarefa.concluida ? "#888" : "#333",
-          }}
-        >
+      {/* Conteúdo da tarefa (título e descrição) */}
+      <div className="tarefa-conteudo">
+        <h3 className="tarefa-titulo">
           {tarefa.titulo}
         </h3>
 
-        {/* Descrição da tarefa */}
+        {/* Descrição - apenas exibida se existir */}
         {tarefa.descricao && (
-          <p
-            style={{
-              margin: 0,
-              color: "#666",
-              fontSize: "14px",
-            }}
-          >
+          <p className="tarefa-descricao">
             {tarefa.descricao}
           </p>
         )}
       </div>
 
-      {/* Botão para excluir */}
-      <button
-        onClick={() => onExcluir(tarefa.id)}
-        style={{
-          backgroundColor: "#ff4444",
-          color: "white",
-          border: "none",
-          borderRadius: "4px",
-          padding: "8px 12px",
-          cursor: "pointer",
-        }}
-      >
-        🗑️
-      </button>
+      {/* Botão de ações (excluir) */}
+      <div className="tarefa-acoes">
+        <button
+          onClick={() => onExcluir(tarefa.id)}
+          className="btn-excluir"
+          title="Excluir tarefa"
+        >
+          🗑️
+        </button>
+      </div>
     </div>
   );
 }
