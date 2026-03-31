@@ -246,6 +246,242 @@ a:hover {
 }
 
 /* ============================================
+   RESPONSIVIDADE MOBILE
+   ============================================ */
+
+/* Tablets pequenos e celulares grandes (até 768px) */
+@media (max-width: 768px) {
+  /* Layout muda para uma coluna */
+  .main-content {
+    flex-direction: column;
+    padding: var(--spacing-md);
+    gap: var(--spacing-lg);
+  }
+
+  /* Colunas ocupam 100% */
+  .tarefas-column,
+  .formulario-column {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Header ajustável */
+  .app-header-evernote {
+    padding: var(--spacing-sm) var(--spacing-md);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .app-header-evernote .logo-text {
+    font-size: var(--font-size-lg);
+  }
+
+  .app-header-evernote .search-box {
+    order: 3;
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin: var(--spacing-xs) 0 0 0;
+  }
+
+  .app-header-evernote .user-menu {
+    gap: var(--spacing-sm);
+  }
+
+  /* Título da página */
+  .app-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .app-subtitle {
+    font-size: var(--font-size-sm);
+  }
+
+  /* Cards de tarefas */
+  .tarefa-card {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    flex-direction: column;
+  }
+
+  .tarefa-conteudo {
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .tarefa-titulo {
+    font-size: var(--font-size-md);
+  }
+
+  .tarefa-descricao {
+    font-size: var(--font-size-sm);
+  }
+
+  .tarefa-acoes {
+    justify-content: flex-end;
+    margin-top: var(--spacing-sm);
+    width: 100%;
+  }
+
+  /* Formulário */
+  .formulario-container {
+    padding: var(--spacing-lg);
+  }
+
+  .formulario-titulo {
+    font-size: var(--font-size-lg);
+  }
+
+  .formulario-input,
+  .formulario-textarea {
+    font-size: var(--font-size-md);
+    padding: var(--spacing-md);
+  }
+
+  .formulario-botao {
+    width: 100%;
+    padding: var(--spacing-md);
+  }
+
+  /* Empty state */
+  .empty-state {
+    padding: var(--spacing-xl);
+  }
+
+  .empty-state-icon {
+    font-size: 48px;
+  }
+
+  .empty-state-text {
+    font-size: var(--font-size-md);
+  }
+}
+
+/* Celulares pequenos (até 480px) */
+@media (max-width: 480px) {
+  /* Layout ainda mais compactado */
+  .main-content {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-md);
+  }
+
+  /* Header muito compactado */
+  .app-header-evernote {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .app-header-evernote .logo-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+
+  .app-header-evernote .logo-text {
+    font-size: var(--font-size-md);
+  }
+
+  .app-header-evernote .user-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: var(--font-size-sm);
+  }
+
+  .theme-toggle {
+    padding: var(--spacing-xs);
+    font-size: 16px;
+  }
+
+  /* Título e subtítulo */
+  .app-header {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .app-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .app-subtitle {
+    font-size: var(--font-size-sm);
+  }
+
+  /* Cards de tarefas */
+  .tarefa-card {
+    padding: var(--spacing-sm);
+  }
+
+  .tarefa-card input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+  }
+
+  .tarefa-card .tarefa-titulo {
+    font-size: var(--font-size-md);
+    word-break: break-word;
+  }
+
+  .tarefa-card .tarefa-descricao {
+    font-size: var(--font-size-sm);
+    word-break: break-word;
+  }
+
+  .tarefa-card .btn-delete {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Formulário */
+  .formulario-container {
+    padding: var(--spacing-md);
+  }
+
+  .formulario-titulo {
+    font-size: var(--font-size-md);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .formulario-label {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .formulario-input,
+  .formulario-textarea {
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+  }
+
+  .formulario-botao {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Footer */
+  .app-footer {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* Tablets (entre 481px e 1024px) */
+@media (min-width: 481px) and (max-width: 1024px) {
+  .main-content {
+    padding: var(--spacing-lg);
+    gap: var(--spacing-lg);
+  }
+
+  .tarefas-column {
+    flex: 1.5;
+  }
+
+  .formulario-column {
+    flex: 1;
+    min-width: 280px;
+  }
+}
+
+/* ============================================
    ESTILOS DE FORMULÁRIO
    ============================================ */
 
