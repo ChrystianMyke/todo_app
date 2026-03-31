@@ -88,7 +88,3 @@ todo_app/
 ## 👤 Autor
 
 Chrystian Myke
-
-## 📝 Licença
-
-MIT
