@@ -1,6 +1,6 @@
 /* ============================================
    ESTILOS DO APP DE TAREFAS
-   Componentes específicos do App.tsx
+   Estilo inspirado no Evernote
    ============================================ */
 
 /* Container principal */
@@ -16,11 +16,250 @@
   margin-bottom: var(--spacing-xxl);
 }
 
+.app-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.app-subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-size-md);
+}
+
+/* Lista de tarefas */
+.tarefas-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xxl);
+}
+
+/* Mensagem quando não há tarefas */
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-xxl);
+  color: var(--text-muted);
+  background-color: var(--bg-card);
+  border: 1px dashed var(--border-medium);
+  border-radius: var(--border-radius-lg);
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.5;
+}
+
+.empty-state-text {
+  font-size: var(--font-size-lg);
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: var(--spacing-xxl);
+  color: var(--text-secondary);
+  background-color: var(--bg-card);
+  border-radius: var(--border-radius-lg);
+}
+
 /* ============================================
-   RESPONSIVIDADE - Sobrescreve regras anteriores
+   CARD DE TAREFA - ESTILO EVERNOTE
+   ============================================ */
+
+.tarefa-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  transition: box-shadow var(--transition-normal), transform var(--transition-fast);
+  cursor: default;
+}
+
+.tarefa-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.tarefa-card.concluida {
+  background-color: #FAFAFA;
+}
+
+.tarefa-card.concluida .tarefa-titulo {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.tarefa-checkbox {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.tarefa-conteudo {
+  flex: 1;
+  min-width: 0;
+}
+
+.tarefa-titulo {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+.tarefa-descricao {
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.tarefa-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.tarefa-acoes {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.tarefa-card:hover .tarefa-acoes {
+  opacity: 1;
+}
+
+.btn-excluir {
+  background-color: transparent;
+  color: var(--text-muted);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-lg);
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.btn-excluir:hover {
+  background-color: #ffebee;
+  color: var(--error);
+}
+
+/* ============================================
+   FORMULÁRIO DE ADICIONAR TAREFA
+   ============================================ */
+
+.formulario-container {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.formulario-titulo {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.formulario-grupo {
+  margin-bottom: var(--spacing-lg);
+}
+
+.formulario-label {
+  display: block;
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.formulario-input {
+  width: 100%;
+}
+
+.formulario-textarea {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  font-family: var(--font-family);
+}
+
+.formulario-botao {
+  background-color: var(--evernote-green);
+  color: white;
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.formulario-botao:hover {
+  background-color: var(--evernote-green-dark);
+}
+
+.formulario-botao:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   BARRA DE AÇÕES RÁPIDAS
+   ============================================ */
+
+.quick-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.quick-action-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-md);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.quick-action-btn:hover {
+  border-color: var(--evernote-green);
+  color: var(--evernote-green);
+}
+
+/* ============================================
+   RESPONSIVIDADE
    ============================================ */
 
 @media (max-width: 600px) {
+  .main-content {
+    padding: var(--spacing-md);
+  }
+
   .app-header-evernote {
     padding: var(--spacing-sm) var(--spacing-md);
   }
@@ -33,8 +272,16 @@
     font-size: 24px;
   }
 
+  .tarefa-card {
+    padding: var(--spacing-md);
+  }
+
   .tarefa-acoes {
     opacity: 1;
+  }
+
+  .formulario-container {
+    padding: var(--spacing-lg);
   }
 }
 
